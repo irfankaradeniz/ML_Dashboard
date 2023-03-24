@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for dataset in datasets %}
+  <p>
+    {{ dataset.file.name }}
+    <a href="{% url 'dashboard:train' dataset.pk %}">Train model</a>
+    <a href="{% url 'dashboard:delete' dataset.pk %}">Delete</a>
+  </p>
+{% endfor %}
+<a href="{% url 'dashboard:upload' %}">Upload Dataset</a>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload dataset</button>
+</form>
+{% endblock %}
